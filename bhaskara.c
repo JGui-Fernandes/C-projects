@@ -11,7 +11,7 @@ int main(){
     scanf("%d", &b);
     scanf("%d", &c);
 
-    delta = (b * b) - (4 * a * c);
+    delta = pow(b, 2) - (4 * a * c);
 
     if (delta > 0)
     {
