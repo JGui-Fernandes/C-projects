@@ -4,6 +4,7 @@
 int main()
 {
     int numeroLinhas;
+    printf("Escreva o numero de linhas desejadas: ");
     scanf("%d", &numeroLinhas);
 
     char texto = '*';
