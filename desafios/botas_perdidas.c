@@ -34,8 +34,12 @@ int main()
             int tamanhoEsq = esquerdo[i];
             int tamanhoDir = direito[j];
 
-            if(tamanhoDir == tamanhoEsq){
-                contPares++;
+            if(tamanhoDir != 0 && tamanhoEsq != 0){
+                if(tamanhoDir == tamanhoEsq){
+                    contPares++;
+                    esquerdo[i] = 0;
+                    direito[j] = 0;
+                }
             }
         }
     }
