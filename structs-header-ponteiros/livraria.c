@@ -42,10 +42,13 @@ int main() {
 
         switch (resposta) {
             case 1:
+                while (getchar() != '\n');
+               
                 printf("Digite o titulo: ");
                 fgets(titulo, sizeof(titulo), stdin);
                 titulo[strcspn(titulo, "\n")] = '\0';
 
+               
                 printf("Digite o nome do autor: ");
                 fgets(autor, sizeof(autor), stdin);
                 autor[strcspn(autor, "\n")] = '\0';
@@ -59,6 +62,7 @@ int main() {
                 livros[livro.id-1] = livro;
                 break;
             case 2:
+                while (getchar() != '\n');
                 printf("Digite o nome do usuario: ");
                 fgets(nome, sizeof(nome), stdin);
                 nome[strcspn(nome, "\n")] = '\0';
