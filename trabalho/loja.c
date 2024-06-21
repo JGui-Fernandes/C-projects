@@ -5,10 +5,11 @@
 #include "loja.h"
 
 int main (){
-    Produto produtos[10];
-    Venda vendas[10];
+    Produto produtos[20];
+    Venda vendas[20];
     Produto P;
-    int numeroProdutos = 0, numeroCompras = 0;
+    Venda V;
+    int numeroProdutos = 0, numeroVendas = 0;
     char descricao[50], nomeComprador[50];
     int estoque, id, quantidade, produtosCarrinho;
     float valor;
@@ -25,19 +26,25 @@ int main (){
                 while (getchar() != '\n');
                 fgets(nomeComprador, sizeof(nomeComprador), stdin);
                 nomeComprador[strcspn(nomeComprador, "\n")] = '\0';
-                valor = 0;
                 produtosCarrinho = 0;
-                Carrinho carrinho[10];
-                while(resposta != 0){
+                Carrinho carrinho[20];
+                id = -1;
+                valorTotal = 0;
+                int numItens = 0;
+                while(id != 0){
 
                     listarEstoque(produtos, numeroProdutos);
 
-                    if(numeroCompras > 0){
+                    if(numeroProdutos == 0){
+                        break;
+                    }
+
+                    if(numeroProdutos > 0){
                         printf("Digite o ID do produto desejado (0 para confirmar produtos): \n");
                         scanf("%d", &id);
 
-                        if(id < 0 || id > numeroCompras){
-                            printf("Produto com ID %d não encontrado!\n\n", id);
+                        if(id < 0 || id > numeroProdutos){
+                            printf("\nProduto com ID %d nao encontrado!\n\n", id);
                         }
                         else if (id != 0){
                             Produto p = produtos[id - 1];
@@ -50,26 +57,49 @@ int main (){
                                 scanf("%d", &quantidade);
 
                                 if(quantidade > p.estoque){
-                                    printf("Quantidade indisponivel.\n");
+                                    printf("\nQuantidade indisponivel.\n\n");
                                 }
-                                else{
+                                else {
                                     carrinho[produtosCarrinho].produto = p;
                                     carrinho[produtosCarrinho].quantidade = quantidade;
-                                    valor += p.valor * quantidade;
-                                    printf("Produto adicionado no carrinho.\n");
+                                    valorTotal += p.valor * quantidade;
+                                    produtos[id - 1].estoque -= quantidade;
+                                    produtosCarrinho++;
+                                    numItens++;
+                                    printf("\nProduto adicionado no carrinho!\n\n");
                                 }
                             }
                         }
-                        else if(id == 0){
-                            printf("Finalizando compra.");
-                            printf("%d", valor);
-                        }
+                        
                     }
 
 
 
                 }
-                resposta = 1;
+
+                if(numeroProdutos > 0){
+                    printf("Finalizando compra.\n");
+
+                    int temp = -1;
+
+                    while(temp < 0 || temp > 1){
+                    printf("Valor total: %.2f\n", valorTotal);
+                    printf("Deseja confirmar a compra? (1 - Sim; 0 - Nao)\n");
+                    scanf("%d", &temp);
+                    }
+                    if(!temp){
+                        for(int i = 0; i < produtosCarrinho; i++){
+                            produtos[carrinho[i].produto.id - 1].estoque += carrinho[i].quantidade;
+                        }
+                        printf("Compra cancelada com sucesso!\n\n");
+                    }
+                    else{
+                        setVenda(&V, &numeroVendas, nomeComprador, carrinho, numItens, valorTotal);
+                        vendas[numeroVendas - 1] = V;
+                        printf("Compra efetuada com sucesso!\n\n");
+                    }
+                }
+                
                 
                 break;
             case 2:
@@ -156,9 +186,20 @@ void listarEstoque(Produto produtos[], int qtdeProdutos){
                 descricao[18] = '.';
                 descricao[19] = '.';
                 descricao[20] = '\0';
-                printf("%-8d %-20s %-10.2f %-8d\n\n", p.id, descricao, p.valor, p.estoque);
+                printf("%-8d %-20s %-10.2f %-8d\n", p.id, descricao, p.valor, p.estoque);
 
             }
         }
+    }
+}
+
+void setVenda(Venda *V, int *id, char nomeComprador[], Carrinho carrinho[], int numItens, float valorTotal){
+    strcpy(V->nomeComprador, nomeComprador);
+    (*id)++;
+    V->id = *id;
+    V->valorTotal = valorTotal;
+    V->numItens = numItens;
+    for (int i = 0; i < numItens; i++) {
+        V->carrinho[i] = carrinho[i];
     }
 }

@@ -48,6 +48,7 @@ int main() {
                 fgets(titulo, sizeof(titulo), stdin);
                 titulo[strcspn(titulo, "\n")] = '\0';
 
+                while (getchar() != '\n');
                
                 printf("Digite o nome do autor: ");
                 fgets(autor, sizeof(autor), stdin);
