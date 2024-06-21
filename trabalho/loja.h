@@ -25,5 +25,6 @@ int menu();
 void setProduto(Produto *P, int *id, char descricao[], int estoque, float valor);
 void listarEstoque(Produto produtos[], int qtdeProdutos);
 void setVenda(Venda *V, int *id, char nomeComprador[], Carrinho carrinho[], int numItens, float valorTotal);
+void inicializarProdutos(Produto produtos[], int *numeroProdutos);
 
 #endif

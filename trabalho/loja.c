@@ -16,6 +16,8 @@ int main (){
     int resposta = -1;
     float valorTotal;
 
+    inicializarProdutos(produtos, &numeroProdutos);
+
     while (resposta != 0){
         resposta = menu();
 
@@ -202,4 +204,35 @@ void setVenda(Venda *V, int *id, char nomeComprador[], Carrinho carrinho[], int 
     for (int i = 0; i < numItens; i++) {
         V->carrinho[i] = carrinho[i];
     }
+}
+
+void inicializarProdutos(Produto produtos[], int *numeroProdutos) {
+    Produto P;
+
+    setProduto(&P, numeroProdutos, "Calca", 20, 112.00);
+    produtos[*numeroProdutos - 1] = P;
+
+    setProduto(&P, numeroProdutos, "Camisa", 18, 95.00);
+    produtos[*numeroProdutos - 1] = P;
+
+    setProduto(&P, numeroProdutos, "Bermuda", 23, 49.90);
+    produtos[*numeroProdutos - 1] = P;
+
+    setProduto(&P, numeroProdutos, "Saia", 12, 169.00);
+    produtos[*numeroProdutos - 1] = P;
+
+    setProduto(&P, numeroProdutos, "Blusa", 9, 120.00);
+    produtos[*numeroProdutos - 1] = P;
+
+    setProduto(&P, numeroProdutos, "Moletom", 4, 135.00);
+    produtos[*numeroProdutos - 1] = P;
+
+    setProduto(&P, numeroProdutos, "Meia", 17, 12.99);
+    produtos[*numeroProdutos - 1] = P;
+
+    setProduto(&P, numeroProdutos, "Tenis", 8, 183.00);
+    produtos[*numeroProdutos - 1] = P;
+
+    setProduto(&P, numeroProdutos, "Bota", 3, 219.90);
+    produtos[*numeroProdutos - 1] = P;
 }
