@@ -5,6 +5,7 @@
         "stdlib.h": "c",
         "string.h": "c",
         "math.h": "c",
-        "loja.h": "c"
+        "loja.h": "c",
+        "header.h": "c"
     }
 }
